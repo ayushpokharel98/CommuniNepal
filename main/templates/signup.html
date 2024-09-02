@@ -1,0 +1,59 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Signup - CommuniNepal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{% tailwind_css %}
+</head>
+
+<body class="bg-slate-200">
+	{% for message in messages %}
+	<div class="flex" id="message" style="width: 100%;">
+		<div class="font-bold" style="width:99%;background-color:{{message.tags}};">{{ message }}</div>
+		<div class="cross" style="background-color:{{message.tags}};"><button id="cross" class="bg-transparent">x</button></div>
+	</div>
+	
+	{% endfor %}
+	<div id="heading" class="flex justify-center">
+		<span class="text-red-700 font-bold text-3xl">Communi</span>
+		<span class="text-blue-900 font-bold text-3xl">Nepal</span>
+	</div>
+	<div id="subheading" class="flex justify-center">
+		<span class="font-semibold text-2xl">Welcome to the Nepal's Social Media!!</span>
+
+	</div>
+	<h1 class="text-center">Never forget to miss any news and updates!</h1>
+	<div class="container mx-auto my-auto mt-5">
+		<div class="login w-80 bg-white mx-auto">
+			<form action="/handleSignup" method="POST">
+				<input type="text" name="name" id="name" placeholder="What should we call you?" class="w-80 mt-5"
+					required>
+				<input type="text" name="firstname" id="firstname" placeholder="First Name" class="w-80" required>
+				<input type="text" name="lastname" id="lastname" placeholder="Last Name" class="w-80" required>
+				<input type="email" name="email" id="email" placeholder="Email" autofocus class="w-80" required>
+				<input type="password" name="password" id="password" placeholder="Password" class="w-80" required>
+				{%csrf_token%}
+				<button type="submit"
+					class="btn btn-primary rounded-md bg-red-600 text-white p-3 w-80 hover:bg-blue-900 my-2">Create
+					a account</button>
+			</form>
+		</div>
+	</div>
+	<div class="container mx-auto my-auto w-80 bg-white">
+		<hr class="bg-black h-[2px]">
+		<div class="create my-3">
+			<a href="/login"><button
+					class="btn btn-primary rounded-md bg-red-600 text-white p-3 w-80 hover:bg-blue-900 mb-5">Already
+					have an account?</button></a>
+		</div>
+	</div>
+	<script src="{% static 'js/messagebar.js' %}"></script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock title %}
+{% block body %}
+
+{% for message in messages %}
+<div class="flex" id="message" style="width: 100%;">
+    <div class="font-bold" style="width:99%;background-color:{{message.tags}};">{{ message }}</div>
+    <div class="cross" style="background-color:{{message.tags}};"><button id="cross" class="bg-transparent">x</button>
+    </div>
+</div>
+{%endfor%}
+
+<div class="top">
+    <p class="font-semibold text-2xl text-red-500 text-center">Create a Post!</p>
+</div>
+<div class="container mx-auto py-8">
+    <form method="POST" action="/createpost" enctype="multipart/form-data"
+        class="max-w-md mx-auto bg-white p-8 shadow-md">
+        {% csrf_token %}
+        <img id="image-preview" class="mt-2 mx-auto" src="#" alt="Image preview"
+            style="display: none; max-width: 100%; max-height: 200px;">
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="post_image">
+                Picture
+            </label>
+            <input type="file" name="post_image" id="post_image" accept="image/jpeg, image/png" capture="camera"
+                class="bg-gray-200 p-2 w-full rounded" onchange="previewImage(event)">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="content">
+                Content
+            </label>
+            <textarea name="post_content" id="post_content" rows="4" cols="50" class="bg-gray-200 p-2 w-full rounded"
+                placeholder="What's on your mind?"></textarea>
+        </div>
+        <div class="mb-6 flex">
+            <button type="submit" class="bg-blue-500 text-black py-2 px-4 rounded hover:bg-blue-600">Update Profile</button>
+            <button type="reset" id="reset" onclick="" class="bg-red-500 text-black py-2 px-4 rounded hover:bg-red-600 ml-40">Cancel</button>
+        </div>
+
+    </form>
+</div>
+<script>
+    function previewImage(event) {
+        var input = event.target;
+        var imagePreview = document.getElementById("image-preview");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function sth(){
+        var image = document.getElementById("image-preview")
+        var btn = document.getElementById("reset")
+        
+    }
+</script>
+
+{% endblock body %}

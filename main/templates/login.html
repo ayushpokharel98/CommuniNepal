@@ -1,0 +1,94 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Login - CommuniNepal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	{% tailwind_css %}
+</head>
+
+<body class="bg-slate-200">
+	{% for message in messages %}
+	<div class="flex" id="message" style="width: 100%;">
+		<div class="font-bold" style="width:99%;background-color:{{message.tags}};">{{ message }}</div>
+		<div class="cross" style="background-color:{{message.tags}};"><button id="cross"
+				class="bg-transparent">x</button></div>
+	</div>
+	{%endfor%}
+	<div class=" mx-0 w-full my-0 h-full absolute flex justify-content-center align-items-center bg-black bg-opacity-60"
+		id="signup" style="display:none;">
+		<div class="main w-auto h-96 ml-auto mr-auto bg-white opacity-100">
+			<div class="sutop flex gap-56">
+				<p class="text-2xl font-semibold text-red-500">Sign Up</p>
+				<svg fill="#000000" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="2rem"
+					class="cursor-pointer" id="cross">
+					<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+					<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+					<g id="SVGRepo_iconCarrier">
+						<path
+							d="M18.8,16l5.5-5.5c0.8-0.8,0.8-2,0-2.8l0,0C24,7.3,23.5,7,23,7c-0.5,0-1,0.2-1.4,0.6L16,13.2l-5.5-5.5 c-0.8-0.8-2.1-0.8-2.8,0C7.3,8,7,8.5,7,9.1s0.2,1,0.6,1.4l5.5,5.5l-5.5,5.5C7.3,21.9,7,22.4,7,23c0,0.5,0.2,1,0.6,1.4 C8,24.8,8.5,25,9,25c0.5,0,1-0.2,1.4-0.6l5.5-5.5l5.5,5.5c0.8,0.8,2.1,0.8,2.8,0c0.8-0.8,0.8-2.1,0-2.8L18.8,16z">
+						</path>
+					</g>
+				</svg>
+			</div>
+			<div class="container mx-auto my-auto mt-5">
+				<div class="login w-80 bg-white mx-auto">
+					<form id="signup-form" action="/handleSignup" method="POST">
+						{% csrf_token %}
+						<input type="text" name="name" id="name" placeholder="What should we call you?"
+							class="w-80 mt-5" required>
+						<span id="name-error" class="error-message bg-red-600 mt-1 text-base"></span>
+						<input type="text" name="firstname" id="firstname" placeholder="First Name" class="w-80"
+							required>
+						<input type="text" name="lastname" id="lastname" placeholder="Last Name" class="w-80" required>
+						<input type="email" name="email" id="email" placeholder="Email" autofocus class="w-80" required>
+						<input type="password" name="password" id="password" placeholder="Password" class="w-80"
+							required>
+						<span id="password-error" class="error-message bg-red-600 mt-1 text-base"></span>
+						<button type="submit"
+							class="btn btn-primary rounded-md bg-red-600 text-white p-3 w-80 hover:bg-blue-900 my-2">Create
+							an account</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="heading" class="flex justify-center">
+		<span class="text-red-700 font-bold text-3xl">Communi</span>
+		<span class="text-blue-900 font-bold text-3xl">Nepal</span>
+	</div>
+	<div id="subheading" class="flex justify-center">
+		<span class="font-semibold text-2xl">Welcome to the Nepal's Social Media!!</span>
+	</div>
+
+	<div class="container mx-auto my-auto mt-5">
+		<div class="login w-80 bg-white mx-auto">
+			<form action="/handleLogin" method="POST">
+				{%csrf_token%}
+				<input type="text" name="loginusername" id="loginusername" placeholder="Username" autofocus
+					class="w-80 mt-5">
+				<input type="password" name="loginpassword" id="loginpassword" placeholder="Password" class="w-80">
+				<button type="submit"
+					class="btn btn-primary rounded-md bg-red-600 text-white p-3 w-80 hover:bg-blue-900 my-2">Login</button>
+			</form>
+		</div>
+	</div>
+	<div class="container mx-auto my-auto w-80 bg-white">
+		<a href="#" class="btn btn-link text-center font-semibold text-blue-950">Forgot
+			Password?</a>
+		<hr class="bg-black h-[2px]">
+		<div class="create my-3">
+			<button class="btn btn-primary rounded-md bg-red-600 text-white p-3 w-80 hover:bg-blue-900 mb-5"
+				id="createaccount">Create a
+				account</button>
+		</div>
+	</div>
+
+	<script src="{%static 'js/messagebar.js'%}"></script>
+	<script src="{%static 'js/login.js'%}"></script>
+</body>
+
+</html>
